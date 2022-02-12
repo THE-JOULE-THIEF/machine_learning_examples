@@ -20,17 +20,20 @@ class BanditArm:
   def __init__(self, p):
     # p: the win rate
     self.p = p
-    self.p_estimate = # TODO
-    self.N = # TODO
+    self.p_estimate = 0 #TODO
+    self.N = 0 #TODO
 
   def pull(self):
     # draw a 1 with probability p
     return np.random.random() < self.p
 
   def update(self, x):
-    self.N = # TODO
-    self.p_estimate = # TODO
+    self.N = self.N + 1 # TODO
+    self.p_estimate = (self.p_estimate) + ((x - self.p_estimate)/self.N)# TODO
 
+def choose_random_argmax(a):
+  idx = np.argwhere(np.amax(a) == a).flatten()
+  return np.random.choice(idx)
 
 def experiment():
   bandits = [BanditArm(p) for p in BANDIT_PROBABILITIES]
@@ -47,10 +50,10 @@ def experiment():
     # use epsilon-greedy to select the next bandit
     if np.random.random() < EPS:
       num_times_explored += 1
-      j = # TODO
+      j = np.random.randint(len(bandits)) # TODO
     else:
       num_times_exploited += 1
-      j = # TODO
+      j = choose_random_argmax([b.p_estimate for b in bandits])# TODO
 
     if j == optimal_j:
       num_optimal += 1
