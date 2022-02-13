@@ -19,9 +19,9 @@ BANDIT_PROBABILITIES = [0.2, 0.5, 0.75]
 class BanditArm:
   def __init__(self, p):
     # p: the win rate
-    self.p = p
+    self.p = p #true win rate
     self.p_estimate = 0 #TODO
-    self.N = 0 #TODO
+    self.N = 0 #TODO no of samples so far
 
   def pull(self):
     # draw a 1 with probability p
