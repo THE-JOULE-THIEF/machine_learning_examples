@@ -3,6 +3,7 @@
 # https://books.google.ca/books?id=_ATpBwAAQBAJ&lpg=PA201&ots=rinZM8jQ6s&dq=hoeffding%20bound%20gives%20probability%20%22greater%20than%201%22&pg=PA201#v=onepage&q&f=false
 from __future__ import print_function, division
 from builtins import range
+from cmath import log
 # Note: you may need to update your version of future
 # sudo pip install -U future
 
@@ -32,7 +33,7 @@ class Bandit:
 
 
 def ucb(mean, n, nj):
-  return # TODO
+  return mean + np.sqrt(2*np.log(n)/nj) # TODO
 
 
 def run_experiment():
@@ -47,7 +48,7 @@ def run_experiment():
     bandits[j].update(x)
   
   for i in range(NUM_TRIALS):
-    j = # TODO
+    j = np.argmax([ucb(b.p_estimate, total_plays, b.N) for b in bandits])# TODO
     x = bandits[j].pull()
     total_plays += 1
     bandits[j].update(x)
